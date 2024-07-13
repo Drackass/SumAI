@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
+      <TooltipProvider>
+        <html lang="en">
+          <body className={cn('antialiased bg-background', inter)}>
+            <Toaster richColors />
+            <div vaul-drawer-wrapper="" className="bg-background min-h-[100vh]">
+              {children}
+            </div>
+          </body>
+        </html>
+      </TooltipProvider>
     </ClerkProvider>
   );
 }

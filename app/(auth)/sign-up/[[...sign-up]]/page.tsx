@@ -2,6 +2,7 @@
 import { SignUp, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import SideAuth from "../../_components/side-auth";
 
 // constants
 // import { NavigatorPath } from "@/constants";
@@ -11,8 +12,8 @@ const SignUpPage = () => {
         <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
         <div className="h-full lg:flex flex-col items-center justify-center px-4">
           <div className="text-center space-y-4 pt-16">
-            <h1 className="font-bold text-3xl text-[#2E2A47]">Welcom Back!</h1>
-            <p className="text-base text-[#7E8CA0]">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Welcom Back!</h1>
+            <p className="leading-7 text-muted-foreground">
               Log in or Create account to get back to your dashboard!
             </p>
           </div>
@@ -25,9 +26,7 @@ const SignUpPage = () => {
             </ClerkLoading>
           </div>
         </div>
-        <div className="h-full bg-zinc-100 hidden lg:flex items-center justify-center">
-        <Image src="/logo.png" height={100} width={100} alt="Logo" />
-        </div>
+        <SideAuth />
       </div>
     )
 };

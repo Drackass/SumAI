@@ -1,21 +1,26 @@
 "use client";
 
-import { Menu } from "lucide-react";
-import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { HeaderLogo } from "./headerLogo";
+import { PanelLeft } from "lucide-react";
+import { Button } from "../../../components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "../../../components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { NavButton } from "./nav-button";
+import Image from "next/image";
+import Link from "next/link";
 
 const routes = [
   {
     href: "/",
-    label: "Dashboard",
+    label: "Overview",
   },
   {
-    href: "/browse",
-    label: "Browse",
-  },
+    href: "/docs",
+    label: "Docs",
+  }
 ];
 
 export const Navigation = () => {
@@ -24,7 +29,9 @@ export const Navigation = () => {
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <HeaderLogo />
+        <Link href="/">
+          <Image src="/logo.png" alt="logo" width={25} height={25} />
+        </Link>
         {routes.map((route) => (
           <NavButton
             key={route.href}
@@ -37,13 +44,15 @@ export const Navigation = () => {
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
+            <PanelLeft className="h-5 w-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
-            <HeaderLogo />
+            <Link href="/">
+              <Image src="/logo.png" alt="logo" width={25} height={25} />
+            </Link>
             {routes.map((route) => (
               <NavButton
                 key={route.href}
