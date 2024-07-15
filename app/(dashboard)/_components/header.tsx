@@ -25,7 +25,7 @@ export default function Header() {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold ml-2.5 pb-10"
             >
-              <Image src="/logo.png" alt="logo" width={42} height={42} />
+              <Image src="/branding/logo.png" alt="logo" width={42} height={42} />
               <span className="sr-only">SumAI</span>
             </Link>
             <Link

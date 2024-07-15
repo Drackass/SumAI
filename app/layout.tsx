@@ -5,6 +5,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { QueryProvider } from "@/provider/query-provider";
+import { dark } from '@clerk/themes';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,14 +22,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+    // appearance={{
+    //   baseTheme: dark
+    // }}
+    >
       <TooltipProvider>
         <html lang="en">
-          <body className={cn('antialiased bg-background', inter)}>
-            <Toaster richColors />
-            <div vaul-drawer-wrapper="" className="bg-background min-h-[100vh]">
-              {children}
-            </div>
+          <body className={cn("antialiased bg-background", inter)}>
+            <QueryProvider>
+              <Toaster richColors />
+              <div
+                vaul-drawer-wrapper=""
+                className="bg-background min-h-[100vh]"
+              >
+                {children}
+              </div>
+            </QueryProvider>
           </body>
         </html>
       </TooltipProvider>

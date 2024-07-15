@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { UserButton, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser();
+  
   return (
     <>
       <div className="flex items-center">

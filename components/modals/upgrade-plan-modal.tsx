@@ -45,7 +45,7 @@ export default function UpgradePlanModal({ children }: UpgradePlanModalProps) {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader className="space-y-4 items-center">
-            <Image src="/logo.png" alt="logo" width={42} height={42} />
+            <Image src="/branding/logo.png" alt="logo" width={42} height={42} />
             <DialogTitle>Upgrade to paid plan</DialogTitle>
             <DialogDescription>
               Upgrade to a paid plan to unlock more features.

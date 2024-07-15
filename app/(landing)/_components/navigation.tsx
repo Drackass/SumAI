@@ -30,7 +30,7 @@ export const Navigation = () => {
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link href="/">
-          <Image src="/logo.png" alt="logo" width={25} height={25} />
+          <Image src="/branding/logo.png" alt="logo" width={25} height={25} />
         </Link>
         {routes.map((route) => (
           <NavButton
@@ -51,7 +51,7 @@ export const Navigation = () => {
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link href="/">
-              <Image src="/logo.png" alt="logo" width={25} height={25} />
+              <Image src="/branding/logo.png" alt="logo" width={25} height={25} />
             </Link>
             {routes.map((route) => (
               <NavButton
