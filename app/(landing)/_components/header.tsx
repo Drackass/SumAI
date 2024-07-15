@@ -7,8 +7,9 @@ import {
   SignedIn,
   UserButton,
   SignInButton,
+  SignUpButton,
 } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, MoveRight } from "lucide-react";
 import Link from "next/link";
 
 export const Header = () => {
@@ -19,15 +20,33 @@ export const Header = () => {
         <div className="flex items-center gap-4">
           <SignedOut>
             <SignInButton>
-              <Button size="sm" variant="ghost" className="flex items-center gap-2">
-              Sign In
+              <Button
+                size="sm"
+                variant="ghost"
+                className="flex items-center gap-2"
+              >
+                Sign in
               </Button>
             </SignInButton>
+            <SignUpButton>
+              <Button
+                size="sm"
+                variant="secondary"
+                className="flex items-center gap-2"
+              >
+                Sign up
+                <MoveRight size={15} />
+              </Button>
+            </SignUpButton>
           </SignedOut>
           <SignedIn>
             {/* <BtnGetStarted /> */}
             <Link href="/dashboard">
-              <Button size="sm" variant="outline" className="flex items-center gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                className="flex items-center gap-2"
+              >
                 <LayoutDashboard size={15} />
                 Dashboard
               </Button>
