@@ -1,12 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
-import { CirclePlus } from "lucide-react";
+import { Atom, CirclePlus } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser();
-  
+
   return (
     <>
       <div className="flex items-center">
@@ -26,7 +26,7 @@ export default function DashboardPage() {
           <p className="text-sm text-muted-foreground">
             You can start by adding a new summary
           </p>
-          <Link href="/dashboard/create">
+          <Link href="/dashboard/summaries/create">
             <Button className="mt-4 flex gap-2 items-center">
               <CirclePlus size={17} />
               Add Summary

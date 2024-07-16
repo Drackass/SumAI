@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function BtnGetStarted() {
   return (
-    <Link href="/dashboard">
+    <Link href="/dashboard/summaries">
       <Button className="flex items-center gap-1 group">
         Get Started{" "}
         <ChevronRight

@@ -74,7 +74,7 @@ export default function UpgradePlanModal({ children }: UpgradePlanModalProps) {
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent >
         <DrawerHeader className="text-left space-y-2">
-          <Image src="/logo.png" alt="logo" width={42} height={42} />
+          <Image src="/branding/logo.png" alt="logo" width={42} height={42} />
           <DrawerTitle>Upgrade to paid plan</DrawerTitle>
           <DrawerDescription>
             Upgrade to a paid plan to unlock more features.

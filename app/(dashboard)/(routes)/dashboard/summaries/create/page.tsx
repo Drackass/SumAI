@@ -1,22 +1,9 @@
-import { z } from "zod";
-import { 
-    TextSearch,
-    Globe,
-    File,
-    FileImage,
-    Youtube,
-    AudioLines,
-  } from "lucide-react";
-import { useForm } from "react-hook-form";
+"use client";
+import * as z from "zod";
+import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { toast } from "sonner";
-
-import { SourceTypes } from "@/features/summaries/components/source-types";
-import { insertSummarySchema} from "@/db/schema"
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -26,20 +13,36 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { toast } from "sonner";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  TextSearch,
+  Globe,
+  File,
+  FileImage,
+  Youtube,
+  AudioLines,
+} from "lucide-react";
+import { SourceTypes } from "./_components/source-types";
+import { insertSummarySchema } from "@/db/schema";
+import { useCreateSummary } from "@/features/summaries/api/use-create-summary";
+
+// const formSchema = z.object({
+//   title: z.string().min(1, { message: "Title is required" }),
+//   type: z.enum(["text", "url", "document", "image", "youtube", "audio"], {
+//     required_error: "Please select a source type.",
+//   }),
+// });
 
 const formSchema = insertSummarySchema.pick({
-    title: true,
-    sourceType: true,
+  title: true,
+  sourceType: true,
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
-type Props = {
-    defaultValues?: FormValues;
-    onSubmit: (values: FormValues) => void;
-    disabled?: boolean;
-}
 
 const sourceTypes = {
   text: TextSearch,
@@ -52,26 +55,37 @@ const sourceTypes = {
 
 type SourceTypesKeys = keyof typeof sourceTypes;
 
+export default function CreatePage() {
+  const mutation = useCreateSummary();
+  const router = useRouter();
 
-export const SummaryForm = ({
-    defaultValues,
-    onSubmit,
-    disabled,
-}: Props) => {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      sourceType: "text",
+    },
+  });
 
-    const form = useForm<FormValues>({
-        resolver: zodResolver(formSchema),
-        defaultValues: defaultValues,
+  const onSubmit = (values: FormValues) => {
+    mutation.mutate(values, {
+      onSuccess: (data) => {
+        "data" in data && router.push(`/dashboard/summaries/${data.data.id}`);
+      },
     });
+  };
 
-    const handleSubmit = (values: FormValues) => {
-        onSubmit(values);
-    };
-
-    return (
+  return (
+    <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
+      <div>
+        <h1 className="text-2xl">Name your summary</h1>
+        <p className="text-sm text-slate-600">
+          What would you like to name your summary ? Don&apos;t worry, you can
+          change this later.
+        </p>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8 mt-8"
           >
             <FormField
@@ -82,8 +96,8 @@ export const SummaryForm = ({
                   <FormLabel>Summary Title</FormLabel>
                   <FormControl>
                     <Input
-                      disabled={disabled}
-                      placeholder="e.g. 'Advanced Web Development'"
+                      disabled={mutation.isPending}
+                      placeholder="e.g 'Advanced Web Development'"
                       {...field}
                     />
                   </FormControl>
@@ -100,23 +114,26 @@ export const SummaryForm = ({
               render={({ field }) => (
                 <FormItem className="space-y-1">
                   <FormLabel>Source Type</FormLabel>
+
                   <FormMessage />
                   <RadioGroup
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                     className="flex flex-wrap pt-2"
                   >
-                    {Object.entries(sourceTypes).map(([key , Icon]) => (
+                    {Object.entries(sourceTypes).map(([key, Icon]) => (
                       <FormItem key={key}>
                         <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
                           <FormControl>
                             <RadioGroupItem value={key} className="sr-only" />
                           </FormControl>
-                          <SourceTypes variant={key as SourceTypesKeys} icon={Icon} />
+                          <SourceTypes
+                            variant={key as SourceTypesKeys}
+                            icon={Icon}
+                          />
                         </FormLabel>
                       </FormItem>
                     ))}
-                    
                   </RadioGroup>
                   <FormDescription>
                     The type of source you want to summarize
@@ -125,16 +142,18 @@ export const SummaryForm = ({
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href="/dashboard">
+              <Link href="/dashboard/summaries">
                 <Button variant="ghost" type="button">
                   Cancel
                 </Button>
               </Link>
-              <Button disabled={disabled}>
-                Create Summary
+              <Button type="submit" disabled={mutation.isPending}>
+                Continue
               </Button>
             </div>
           </form>
         </Form>
-    )
+      </div>
+    </div>
+  );
 }

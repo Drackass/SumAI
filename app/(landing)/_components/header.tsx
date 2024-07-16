@@ -33,12 +33,8 @@ export const Header = () => {
             </SignUpButton>
           </SignedOut>
           <SignedIn>
-            <Link href="/dashboard">
-              <Button
-                size="sm"
-                variant="outline"
-                className="flex items-center gap-2"
-              >
+            <Link href="/dashboard/summaries">
+              <Button size="sm" variant="outline" className="flex items-center gap-2">
                 <LayoutDashboard size={15} />
                 Dashboard
               </Button>

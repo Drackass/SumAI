@@ -14,13 +14,21 @@ import Link from "next/link";
 
 const routes = [
   {
-    href: "/",
-    label: "Overview",
+    href: "/pricing",
+    label: "Pricing",
   },
   {
-    href: "/docs",
-    label: "Docs",
-  }
+    href: "/about",
+    label: "About",
+  },
+  {
+    href: "/documentation",
+    label: "Documentation",
+  },
+  {
+    href: "/features",
+    label: "Features",
+  },
 ];
 
 export const Navigation = () => {
