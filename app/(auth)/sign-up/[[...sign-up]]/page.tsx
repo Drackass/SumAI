@@ -1,13 +1,17 @@
+"use client";
 // libs
 import { SignUp, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
-import Image from "next/image";
 import SideAuth from "../../_components/side-auth";
+import { useTheme } from "next-themes";
+import { dark } from "@clerk/themes";
 
 // constants
 // import { NavigatorPath } from "@/constants";
 
 const SignUpPage = () => {
+    const { theme } = useTheme();
+  
     return (
         <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2">
         <div className="h-full lg:flex flex-col items-center justify-center px-4">
@@ -19,7 +23,12 @@ const SignUpPage = () => {
           </div>
           <div className="flex items-center justify-center mt-8">
             <ClerkLoaded>
-              <SignUp path="/sign-up" />
+              <SignUp 
+                appearance={{
+                  baseTheme: theme === "dark" ? dark : undefined,
+                }}
+              path="/sign-up" 
+              />
             </ClerkLoaded>
             <ClerkLoading>
               <Loader2 className="animate-spin text-muted-foreground" />

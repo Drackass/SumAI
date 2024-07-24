@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UpgradeProCard from "./upgrade-pro-card";
 import Navigation from "./navigation";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Header() {
   return (
@@ -25,7 +26,7 @@ export default function Header() {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold ml-2.5 pb-10"
             >
-              <Image src="/logo.png" alt="logo" width={42} height={42} />
+              <Image src="/branding/logo.svg" alt="logo" width={42} height={42} />
               <span className="sr-only">SumAI</span>
             </Link>
             <Link
@@ -35,6 +36,7 @@ export default function Header() {
               <BookCopy size={22} className="h-5 w-5 md:h-4 md:w-4" />
               Overview
             </Link>
+
             <Navigation />
           </nav>
           <div className="mt-auto">
@@ -56,10 +58,10 @@ export default function Header() {
         </form>
       </div>
       <div className="flex items-center gap-4">
-        <Badge variant="credit">
+        {/* <Badge variant="credit">
           5
           <Atom size={15} />
-        </Badge>
+        </Badge> */}
         <Link href="/" className="hidden sm:block">
           <Button
             size="sm"
@@ -70,6 +72,7 @@ export default function Header() {
             Overview
           </Button>
         </Link>
+        <ModeToggle />
         <UserButton />
       </div>
     </header>

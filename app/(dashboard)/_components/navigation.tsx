@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 const routes = [
   {
-    href: "/dashboard",
+    href: "/dashboard/summaries",
     label: "Dashboard",
     icon: Home,
   },
@@ -37,7 +37,7 @@ export default function Navigation() {
           href={route.href}
           label={route.label}
           icon={route.icon}
-          isActive={pathname === route.href}
+          isActive={pathname?.includes(route.href)}
         />
       ))}
     </>
