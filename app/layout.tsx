@@ -6,7 +6,9 @@ import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/provider/query-provider";
-import { dark } from '@clerk/themes';
+import { dark } from "@clerk/themes";
+import { ThemeProvider } from "@/provider/theme-provider";
+import { CrispProvider } from "@/provider/crisp-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,21 +29,29 @@ export default function RootLayout({
     //   baseTheme: dark
     // }}
     >
-      <TooltipProvider>
-        <html lang="en">
-          <body className={cn("antialiased bg-background", inter)}>
-            <QueryProvider>
-              <Toaster richColors />
-              <div
-                vaul-drawer-wrapper=""
-                className="bg-background min-h-[100vh]"
-              >
-                {children}
-              </div>
-            </QueryProvider>
-          </body>
-        </html>
-      </TooltipProvider>
+      <html lang="en" className="!scroll-smooth">
+        <CrispProvider />
+        <body className={cn("antialiased bg-background", inter)}>
+          <TooltipProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <QueryProvider>
+                <Toaster position="bottom-center" />
+                <div
+                  vaul-drawer-wrapper=""
+                  className="bg-background min-h-[100vh]"
+                >
+                  {children}
+                </div>
+              </QueryProvider>
+            </ThemeProvider>
+          </TooltipProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }

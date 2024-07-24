@@ -45,7 +45,7 @@ export default function UpgradePlanModal({ children }: UpgradePlanModalProps) {
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader className="space-y-4 items-center">
-            <Image src="/branding/logo.png" alt="logo" width={42} height={42} />
+            <Image src="/branding/logo.svg" alt="logo" width={42} height={42} />
             <DialogTitle>Upgrade to paid plan</DialogTitle>
             <DialogDescription>
               Upgrade to a paid plan to unlock more features.
@@ -74,7 +74,7 @@ export default function UpgradePlanModal({ children }: UpgradePlanModalProps) {
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent >
         <DrawerHeader className="text-left space-y-2">
-          <Image src="/branding/logo.png" alt="logo" width={42} height={42} />
+          <Image src="/branding/logo.svg" alt="logo" width={42} height={42} />
           <DrawerTitle>Upgrade to paid plan</DrawerTitle>
           <DrawerDescription>
             Upgrade to a paid plan to unlock more features.
@@ -82,7 +82,7 @@ export default function UpgradePlanModal({ children }: UpgradePlanModalProps) {
         </DrawerHeader>
         <div className="p-4 py-0">
           <Separator className="mt-2" />
-          <ul className="my-6  [&>li]:mt-2 w-full">
+          <ul className="my-6 [&>li]:mt-2 w-full">
             {proFeatures.map((feature) => (
               <li
                 key={feature}
