@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 const DashboardLayout = ({ children }: Props) => (
+
   <div className="flex min-h-screen flex-col bg-background">
     <div className="pointer-events-none fixed left-0 bottom-0 z-50 h-12 w-full bg-gradient-to-t from-background to-transparent backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_top,black,transparent)] "></div>
     <Header />
