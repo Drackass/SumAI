@@ -79,8 +79,14 @@ const config = {
           },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: { 
+            height: "var(--radix-accordion-content-height)",
+            opacity: "1",
+          },
+          to: { 
+            height: "0",
+            opacity: "0",
+          },
         },
       },
       animation: {
