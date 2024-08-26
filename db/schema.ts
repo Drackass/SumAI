@@ -1,5 +1,5 @@
 import { createInsertSchema } from "drizzle-zod"
-import { pgTable, serial, text, boolean } from 'drizzle-orm/pg-core';
+import { pgTable, text, boolean } from 'drizzle-orm/pg-core';
 
 export const summary = pgTable('summary', {
   id: text('id').primaryKey(),
