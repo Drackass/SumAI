@@ -24,7 +24,7 @@ export const useDeleteSummary = (id?: string) => {
         },
         onSuccess: () => {
             toast.success("Summary delete");
-            queryClient.invalidateQueries({ queryKey: ["summaries", { id }] });
+            queryClient.invalidateQueries({ queryKey: ["summary", { id }] });
             queryClient.invalidateQueries({ queryKey: ["summaries"] });
         },
         onError: () => {

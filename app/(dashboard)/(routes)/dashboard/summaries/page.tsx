@@ -1,14 +1,13 @@
 "use client";
+
 import { useGetSummaries } from "@/features/summaries/api/use-get-summaries";
 import { useBulkDeleteSummaries } from "@/features/summaries/api/use-bulk-delete";
-
 import { Atom, CirclePlus, Loader2 } from "lucide-react";
 import { columns } from "./_components/columns";
 import { DataTable } from "@/components/data-table";
 import WelcomeBack from "./_components/welcome-back";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
   const summariesQuery = useGetSummaries();
@@ -50,13 +49,13 @@ export default function DashboardPage() {
       )}
 
       {summariesQuery.isFetched && summaries.length > 0 && (
-        <div className="mt-5">
+        <div>
           <div className="flex justify-between items-center">
             <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
               Summaries page
             </h3>
             <Link href="/dashboard/summaries/create">
-              <Button className="mt-4 flex gap-2 items-center" size="sm">
+              <Button className="flex gap-2 items-center" size="sm">
                 <CirclePlus size={17} />
                 Add Summary
               </Button>

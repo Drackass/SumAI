@@ -1,25 +1,18 @@
 "use client";
 
 import { InferResponseType } from "hono";
-import { ArrowUpDown, Eye, File, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { client } from "@/lib/hono";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+
 import { SourceDatatable } from "./source-datatable";
 import { Actions } from "./actions";
+import { formatDistanceToNow } from 'date-fns/formatDistanceToNow'
+
 
 export type ResponseType = InferResponseType<
   typeof client.api.summaries.$get,
@@ -101,6 +94,25 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Badge>
       );
     },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Created At
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const date = row.getValue("createdAt") as string;
+      return formatDistanceToNow(new Date(date), { addSuffix: true });
+    }
+    
   },
   {
     id: "actions",

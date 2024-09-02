@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { Hono } from "hono";
-import { and, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
 import { zValidator } from "@hono/zod-validator";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 
 import db from "@/db/drizzle";
-import { insertSummarySchema, summary } from "@/db/schema";
+import { attachment, insertSummarySchema, summary } from "@/db/schema";
 
 const app = new Hono()
   .get("/", clerkMiddleware(), async (c) => {
@@ -22,9 +22,12 @@ const app = new Hono()
         title: summary.title,
         SourceType: summary.sourceType,
         isPublished: summary.isPublished,
+        createdAt: summary.createdAt,
+        updatedAt: summary.updatedAt,
       })
       .from(summary)
-      .where(eq(summary.userId, auth.userId));
+      .where(eq(summary.userId, auth.userId))
+      .orderBy(desc(summary.updatedAt));
 
     return c.json({ data });
   })
@@ -53,8 +56,12 @@ const app = new Hono()
         .select({
           id: summary.id,
           title: summary.title,
+          userId: summary.userId,
           sourceType: summary.sourceType,
           isPublished: summary.isPublished,
+          attachmentId: summary.attachmentId,
+          createdAt: summary.createdAt,
+          updatedAt: summary.updatedAt,
         })
         .from(summary)
         .where(and(eq(summary.userId, auth.userId), eq(summary.id, id)));
@@ -138,7 +145,8 @@ const app = new Hono()
       "json",
       insertSummarySchema.pick({
         title: true,
-      })
+        isPublished: true,
+      }).partial()
     ),
     async (c) => {
       const auth = getAuth(c);
@@ -155,7 +163,7 @@ const app = new Hono()
 
       const [data] = await db
         .update(summary)
-        .set(values)
+        .set({ ...values, updatedAt: new Date() })
         .where(and(eq(summary.userId, auth.userId), eq(summary.id, id)))
         .returning();
 
