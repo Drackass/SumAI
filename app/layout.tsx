@@ -9,6 +9,7 @@ import { QueryProvider } from "@/provider/query-provider";
 import { dark } from "@clerk/themes";
 import { ThemeProvider } from "@/provider/theme-provider";
 import { CrispProvider } from "@/provider/crisp-provider";
+import { ConfettiProvider } from "@/provider/confetti-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
               disableTransitionOnChange
             >
               <QueryProvider>
+                <ConfettiProvider />
                 <Toaster position="bottom-center" />
                 <div
                   vaul-drawer-wrapper=""
